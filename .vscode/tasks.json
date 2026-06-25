@@ -1,0 +1,50 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "markdown: create drawio and insert img (zenn)",
+      "type": "shell",
+      "windows": {
+        "command": "powershell",
+        "args": [
+          "-NoProfile",
+          "-ExecutionPolicy",
+          "Bypass",
+          "-File",
+          "C:\\Users\\hatanakayukina\\AppData\\Roaming\\Code\\User\\scripts\\new-markdown-drawio.ps1",
+          "-MarkdownFile",
+          "${file}",
+          "-TargetDir",
+          "${workspaceFolder}\\images\\${fileBasenameNoExtension}",
+          "-BaseName",
+          "${fileBasenameNoExtension}",
+          "-LineNumber",
+          "${lineNumber}",
+          "-TagFormat",
+          "md"
+        ]
+      },
+      "linux": {
+        "command": "bash",
+        "args": [
+          "/home/hatanakayukina/.local/share/vscode-scripts/new-markdown-drawio.sh",
+          "${file}",
+          "${workspaceFolder}/images/${fileBasenameNoExtension}",
+          "${fileBasenameNoExtension}",
+          "${lineNumber}",
+          "md"
+        ]
+      },
+      "problemMatcher": [],
+      "presentation": {
+        "reveal": "never",
+        "revealProblems": "never",
+        "focus": false,
+        "panel": "dedicated",
+        "showReuseMessage": false,
+        "clear": true,
+        "close": true
+      }
+    }
+  ]
+}
