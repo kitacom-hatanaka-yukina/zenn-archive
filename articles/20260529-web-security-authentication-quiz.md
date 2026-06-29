@@ -1,4 +1,4 @@
-﻿---
+---
 title: "Web認証の仕組みをクイズで理解する"
 emoji: "🐱"
 type: "tech"
