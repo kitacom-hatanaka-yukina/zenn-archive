@@ -2,7 +2,7 @@
 title: "Web認証の仕組みをクイズで理解する"
 emoji: "🐱"
 type: "idea" # tech: 技術記事 / idea: アイデア
-topics: []
+topics: ["web"]
 published: true
 ---
 
