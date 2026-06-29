@@ -1,7 +1,8 @@
 ---
 title: Web認証の仕組みをクイズで理解する
 private: false
-tags: []
+tags:
+  - web
 updated_at: '2026-06-29T12:53:19.014Z'
 id: null
 organization_url_name: null
