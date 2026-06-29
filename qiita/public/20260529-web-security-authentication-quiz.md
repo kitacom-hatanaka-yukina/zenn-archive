@@ -1,12 +1,13 @@
 ---
 title: Web認証の仕組みをクイズで理解する
-private: false
 tags:
-  - web
-updated_at: '2026-06-29T12:53:19.014Z'
-id: null
+  - Web
+private: false
+updated_at: '2026-06-29T22:15:15+09:00'
+id: e49257a7194922f02a71
 organization_url_name: null
 slide: false
+ignorePublish: false
 ---
 
 ## はじめに
