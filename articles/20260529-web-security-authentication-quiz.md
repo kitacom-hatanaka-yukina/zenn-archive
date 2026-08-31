@@ -4,6 +4,7 @@ emoji: "🐱"
 type: "tech"
 topics: ["認証", "セッション", "JWT"]
 published: true
+publication_name: "kitacom_blog"
 ---
 
 ## はじめに
