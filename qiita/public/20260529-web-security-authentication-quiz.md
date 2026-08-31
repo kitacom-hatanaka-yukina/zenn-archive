@@ -1,14 +1,17 @@
 ---
 title: Web認証の仕組みをクイズで理解する
-private: false
 tags:
+  - JWT
   - 認証
   - セッション
-  - JWT
-updated_at: '2026-08-31T17:29:46+09:00'
+private: false
+updated_at: '2026-08-31T17:32:01+09:00'
 id: '54050650231814599576'
 organization_url_name: null
 slide: false
+ignorePublish: false
+posting_campaign_uuid: null
+agreed_posting_campaign_term: false
 ---
 
 ## はじめに
