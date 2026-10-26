@@ -1,0 +1,8 @@
+$TTL 5
+@   IN SOA ns.super-ultra-mega-bank.example. admin.super-ultra-mega-bank.example. ( 2 60 60 60 60 )
+@   IN NS  ns.super-ultra-mega-bank.example.
+ns  IN A   172.30.0.53
+
+; ヘッダ From に詐称される「被害者」ドメイン。DMARC ポリシーを公開している。
+; 検証の最後に p=quarantine を p=quarantine に変えて再送すると、配送段階で 5xx 拒否される。
+_dmarc IN TXT "v=DMARC1; p=quarantine; rua=mailto:dmarc@super-ultra-mega-bank.example"

@@ -1,31 +1,15 @@
 """
-ヘルパー
+ヘルパー（送信スクリプト共通）。
+
+設定値は docker compose の environment（sender サービス）から渡される。
 """
 import os
 from email.message import EmailMessage
 from email.utils import formatdate, make_msgid, parseaddr
-from pathlib import Path
 
 
-def _load_dotenv() -> None:
-    """
-    .env を読み込む
-    """
-    env_path = Path(__file__).with_name(".env")
-    if not env_path.exists():
-        return
-    for line in env_path.read_text(encoding="utf-8").splitlines():
-        line = line.strip()
-        if not line or line.startswith("#") or "=" not in line:
-            continue
-        key, _, value = line.partition("=")
-        os.environ.setdefault(key.strip(), value.strip())
-
-
-_load_dotenv()
-
-# 送信先
-TO_ADDR = os.environ.get("MAIL_TO", "hatanaka_yukina@kita-com.com")
+# 送信先（ラボ内の被害者メールボックス）
+TO_ADDR = os.environ.get("MAIL_TO", "me@inbox.example")
 
 # ヘッダ From に詐称するドメイン（存在しない架空ドメイン）
 SPOOF_FROM = os.environ.get(
@@ -33,25 +17,25 @@ SPOOF_FROM = os.environ.get(
     "スーパーウルトラメガ銀行 <info@super-ultra-mega-bank.example>",
 )
 
-# 自分が管理する正規ドメイン
+# 攻撃者が管理する正規ドメイン
 MY_DOMAIN = os.environ.get("MAIL_MY_DOMAIN", "mydomain.example")
 
 # エンベロープ From に使う自分の管理ドメインのアドレス
 BOUNCE_ADDR = os.environ.get("MAIL_BOUNCE_ADDR", f"bounce@{MY_DOMAIN}")
 
-# 送信先ドメインの受信サーバ
-SMTP_HOST = os.environ.get("MAIL_SMTP_HOST", "gmail-smtp-in.l.google.com")
+# 送信先の受信サーバ（ラボの mail コンテナ）
+SMTP_HOST = os.environ.get("MAIL_SMTP_HOST", "mail")
 SMTP_PORT = int(os.environ.get("MAIL_SMTP_PORT", "25"))
 
 # DKIM 用
 DKIM_SELECTOR = os.environ.get("MAIL_DKIM_SELECTOR", "selector1")
-DKIM_PRIVATE_KEY = os.environ.get("MAIL_DKIM_PRIVATE_KEY", "private.key")
+DKIM_PRIVATE_KEY = os.environ.get("MAIL_DKIM_PRIVATE_KEY", "/keys/dkim.private")
 
 
 def build_message() -> EmailMessage:
     """銀行を騙るなりすましメールを組み立てる"""
     msg = EmailMessage()
-    msg["From"] = SPOOF_FROM # ヘッダ From を詐称
+    msg["From"] = SPOOF_FROM  # ヘッダ From を詐称
     msg["To"] = TO_ADDR
     msg["Subject"] = "スーパーウルトラメガ銀行からの大事なお知らせ"
     msg["Date"] = formatdate(localtime=True)

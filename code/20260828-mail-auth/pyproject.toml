@@ -1,8 +1,0 @@
-[project]
-name = "mail-auth-experiment"
-version = "0.1.0"
-description = "記事「なりすましメールはなぜ防げるのか」の SPF/DKIM/DMARC 実験スクリプト"
-requires-python = ">=3.9"
-dependencies = [
-    "dkimpy>=1.1.0",
-]

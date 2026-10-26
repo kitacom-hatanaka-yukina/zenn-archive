@@ -1,0 +1,10 @@
+$TTL 5
+@   IN SOA ns.mydomain.example. admin.mydomain.example. ( 1 60 60 60 60 )
+@   IN NS  ns.mydomain.example.
+ns  IN A   172.30.0.53
+
+; 送信コンテナ(sender)の IP だけを許可。SPF はエンベロープ From のドメインで引かれる
+@   IN TXT "v=spf1 ip4:172.30.0.10 -all"
+
+; DKIM 公開鍵（秘密鍵は sender コンテナが保持）
+selector1._domainkey IN TXT "v=DKIM1; k=rsa; p=MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQCoTbJtynSAVw9VDu1btjBD2oF2Znwk1NZ7MdfixtVw+sOOcRucDxgNcGoCLv5KQKhrZlk65U6XG5ELAXJ93QnCsrMfai9m8P5Gor1Gc6iTR+mWoI8TywKQggveUJe6shBjWFiASDIXRfQ1j4tM8yaY+yEU8dV2Ej8NI58Wsn43GQIDAQAB"

@@ -1,0 +1,27 @@
+# 3つの偽ドメインの権威 DNS。ゾーンファイルを編集したら reload で自動反映される。
+mydomain.example:53 {
+    file /etc/coredns/zones/mydomain.example.db
+    reload 2s
+    log
+    errors
+}
+
+super-ultra-mega-bank.example:53 {
+    file /etc/coredns/zones/super-ultra-mega-bank.example.db
+    reload 2s
+    log
+    errors
+}
+
+inbox.example:53 {
+    file /etc/coredns/zones/inbox.example.db
+    reload 2s
+    log
+    errors
+}
+
+# 上記以外の問い合わせはパブリック DNS へ（ラボ内では基本使わない）
+. {
+    forward . 8.8.8.8
+    errors
+}

@@ -1,0 +1,82 @@
+services:
+  # ネットワーク内でドメインを解決するためのDNS
+  dns:
+    image: coredns/coredns:1.11.1
+    command: ["-conf", "/etc/coredns/Corefile"]
+    volumes:
+      - ./dns/Corefile:/etc/coredns/Corefile:ro
+      - ./dns/zones:/etc/coredns/zones:ro
+    networks:
+      mailnet:
+        ipv4_address: 172.30.0.53
+
+  # メールフィルタリングツール
+  rspamd:
+    image: rspamd/rspamd:3.8.4
+    volumes:
+      - ./rspamd/local.d:/etc/rspamd/local.d:ro
+    networks:
+      mailnet:
+        ipv4_address: 172.30.0.11
+    # DNSを参照
+    dns:
+      - 172.30.0.53
+    ports:
+      - "11334:11334" # http://localhost:11334
+    depends_on:
+      - dns
+
+  # Postfix と Dovecot を使ったメールサーバ
+  mail:
+    build: ./mail
+    hostname: mail.inbox.example
+    networks:
+      mailnet:
+        ipv4_address: 172.30.0.25
+    depends_on:
+      - rspamd
+
+  # webメールソフト 
+  roundcube:
+    image: roundcube/roundcubemail:1.6.7-apache
+    environment:
+      ROUNDCUBEMAIL_DEFAULT_HOST: mail
+      ROUNDCUBEMAIL_DEFAULT_PORT: "143"
+      ROUNDCUBEMAIL_SMTP_SERVER: mail
+      ROUNDCUBEMAIL_SMTP_PORT: "25"
+      ROUNDCUBEMAIL_DB_TYPE: sqlite
+    ports:
+      - "18080:80" # http://localhost:18080
+    networks:
+      - mailnet
+    depends_on:
+      - mail
+
+  # 送信元用コンテナ
+  sender:
+    build: ./sender
+    volumes:
+      - ./keys:/keys:ro # DKIMで使う秘密鍵
+    working_dir: /work
+    environment:
+      MAIL_TO: me@inbox.example
+      MAIL_SMTP_HOST: mail
+      MAIL_SMTP_PORT: "25"
+      MAIL_MY_DOMAIN: mydomain.example
+      MAIL_BOUNCE_ADDR: bounce@mydomain.example
+      MAIL_SPOOF_FROM: "スーパーウルトラメガ銀行 <info@super-ultra-mega-bank.example>"
+      MAIL_DKIM_SELECTOR: selector1
+      MAIL_DKIM_PRIVATE_KEY: /keys/dkim.private
+    networks:
+      mailnet:
+        ipv4_address: 172.30.0.10
+    depends_on:
+      - mail
+    command: ["sleep", "infinity"]
+
+networks:
+  mailnet:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.30.0.0/24

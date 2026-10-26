@@ -1,5 +1,1 @@
-.env
-private.key
-public.key
-.venv/
 __pycache__/

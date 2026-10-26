@@ -1,0 +1,8 @@
+$TTL 5
+@    IN SOA ns.inbox.example. admin.inbox.example. ( 1 60 60 60 60 )
+@    IN NS  ns.inbox.example.
+ns   IN A   172.30.0.53
+
+; 受信側（被害者 me@inbox.example の受信サーバ）
+@    IN MX 10 mail.inbox.example.
+mail IN A  172.30.0.25
