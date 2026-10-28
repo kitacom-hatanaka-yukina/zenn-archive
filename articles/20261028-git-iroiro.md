@@ -1,6 +1,6 @@
 ---
 title: "Gitでいろいろ"
-emoji: "🙈"
+emoji: "🧰"
 type: "tech"
 topics: ["Git", "初心者"]
 published: false
