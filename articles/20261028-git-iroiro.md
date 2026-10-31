@@ -3,7 +3,8 @@ title: "Gitでいろいろ"
 emoji: "🧰"
 type: "tech"
 topics: ["Git", "初心者"]
-published: false
+published: true
+publication_name: "kitacom_blog"
 ---
 
 ## はじめに
