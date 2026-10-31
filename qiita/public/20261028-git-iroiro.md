@@ -1,14 +1,16 @@
 ---
 title: Gitでいろいろ
-publication_name: kitacom_blog
-private: false
 tags:
   - Git
   - 初心者
-updated_at: '2026-10-31T11:38:11.081Z'
-id: null
+private: false
+updated_at: '2026-10-31T20:38:20+09:00'
+id: dde1b046ddca1ae0139a
 organization_url_name: null
 slide: false
+ignorePublish: false
+posting_campaign_uuid: null
+agreed_posting_campaign_term: false
 ---
 
 ## はじめに
